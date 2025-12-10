@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAAX Group</title>
+  <style>
+    /* Global Styles */
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f1f1f1; }
+    nav { background-color: #0056b3; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+    nav img { height: 40px; margin-right: 10px; } /* Reduced margin between logo and name */
+    nav .company-name { font-size: 22px; font-weight: bold; margin-left: 10px; } /* Added small margin */
+    nav .menu { display: flex; justify-content: flex-end; }
+    nav a { color: white; text-decoration: none; margin: 0 20px; font-size: 16px; }
+    footer { background-color: #333; color: white; text-align: center; padding: 20px 0; font-size: 14px; }
+
+  
+
+    /* About Section */
+    .about { padding: 60px 30px; background-color: #ffffff; text-align: center; color: #333; }
+    .about h2 { font-size: 36px; margin-bottom: 20px; }
+    .about p { font-size: 18px; line-height: 1.8; }
+
+  /* ---- News & Events styled like Our Business ---- */
+
+.news {
+  background: #ffffff;
+  padding: 60px 30px;
+}
+
+.news-block {
+  display: flex;
+  background: #f8f9fa;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  padding: 20px;
+  align-items: center;
+}
+
+.news-img {
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.news-img img {
+  width: 100%;
+  height: 260px;
+  object-fit: contain;          /* 跟 Our Business 一样，竖图不被裁掉 */
+  background-color: #f1f1f1;    /* 灰底填充空白 */
+  border-radius: 10px;
+}
+
+.news-img.iso-three img {
+  width: 32%;
+  height: 260px;
+  object-fit: contain;
+}
+
+.news-text {
+  width: 60%;
+  padding-left: 30px;
+}
+
+.news-text h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #003f88;
+}
+
+.news-text p {
+  font-size: 16px;
+  margin: 0;
+}
+    /* Contact Section */
+    .contact { background-color: #0056b3; color: white; padding: 40px; display: flex; justify-content: space-between; align-items: center; }
+    .contact-info { width: 45%; }
+    .contact-info h3 { font-size: 28px; margin-bottom: 20px; }
+    .contact-info p { font-size: 18px; margin: 10px 0; }
+    .contact-map { width: 45%; }
+    iframe { width: 100%; height: 300px; border: none; }
+
+    /* Inquiry Form */
+    .inquiry-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: 0 auto; /* Center the form */
+      background-color: #fff;
+      color: #333;
+    }
+
+    .inquiry-form input, .inquiry-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .inquiry-form input:focus, .inquiry-form textarea:focus {
+      border-color: #0056b3;
+      outline: none;
+    }
+
+    .inquiry-form button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .inquiry-form button:hover {
+      background-color: #003f88;
+    }
+/* Floating Inquiry Form Button */
+.floating-form {
+  position: fixed; 
+  bottom: 10px; 
+  right: 10px; 
+  background-color: #0056b3; 
+  padding: 15px 30px; 
+  border-radius: 50px; 
+  color: white; 
+  cursor: pointer;
+}
+
+.floating-form:hover {
+  background-color: #003f88;
+}
+
+/* Floating Inquiry Form Popup */
+.inquiry-form-popup {
+  display: none; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 9999; 
+}
+
+/* Inquiry Form Popup */
+.inquiry-form-popup .form-content {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background: white; 
+  padding: 30px;  /* Increased padding for better spacing */
+  border-radius: 10px; 
+  width: 500px;  /* Increased width for the form */
+  max-width: 90%; /* Allow it to scale down on smaller screens */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+/* Ensure inputs, textarea, and button stay within the form width */
+.inquiry-form-popup input, 
+.inquiry-form-popup textarea, 
+.inquiry-form-popup button {
+  width: 100%; 
+  padding: 12px; 
+  margin: 10px 0; 
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+/* Adjust the button for better visual appearance */
+.inquiry-form-popup button {
+  background-color: #0056b3; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+  padding: 12px 20px; 
+  border-radius: 5px; 
+  font-size: 16px;
+}
+
+.inquiry-form-popup button:hover {
+  background-color: #003f88;
+}
+/* Social Media Icons */
+.social-icons {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  margin-top: 20px;
+}
+
+.social-icons a {
+  margin: 0 10px; /* Adjust space between icons */
+}
+
+.social-icons img {
+  width: 40px; /* Increased width for the icons */
+  height: 40px; /* Increased height for the icons */
+  border-radius: 50%; /* Optional: to make icons circular */
+}
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: 40px 0;
+  text-align: center;
+  overflow: hidden;
+  height: 400px; /* 你要的高度 */
+}
+.carousel-slide {
+  display: none;
+  width: 100%;
+  height: 50vh;   /* 随屏幕自适应，竖图能看到更多 */
+  object-fit: cover;
+}
+
+/* 轮播图片基础样式：默认隐藏 */
+.carousel-slide {
+  display: none;
+  width: 100%;
+  height: 400px;       /* 和 .hero 的高度一致 */
+  object-fit: cover;
+  border-radius: 10px;
+  transition: opacity 1s ease-in-out;
+}
+
+/* 当前这一张：显示出来 */
+.carousel-slide.active {
+  display: block;
+}
+
+.hero-text {
+  position: absolute;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Our Business Section */
+    .our-business {
+      padding: 60px 30px;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .our-business h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .business-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 40px;
+      align-items: flex-start;
+    }
+
+    .business-image,
+    .business-images-row {
+      flex: 1 1 40%;
+    }
+
+ .business-image img,
+.business-images-row img {
+      width: 100%;
+      height: 260px;
+      object-fit: contain;   /* 让竖图完整显示 */
+      background-color: #f1f1f1; /* 背景填充 */
+      border-radius: 10px;
+}
+
+    .business-text {
+      flex: 1 1 55%;
+    }
+
+    .business-text h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #0056b3;
+    }
+
+    .business-text ul {
+      padding-left: 20px;
+      margin: 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .business-text ul li {
+      margin-bottom: 6px;
+    }
+
+    /* 小屏幕下改成上下结构 */
+    @media (max-width: 768px) {
+      .business-section {
+        flex-direction: column;
+      }
+
+      .business-image,
+      .business-images-row,
+      .business-text {
+        flex: 1 1 100%;
+      }
+
+      .business-image img,
+      .business-images-row img {
+        height: 200px;
+      }
+    }
+    /* Image Lightbox (点击图片放大) */
+.img-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.img-lightbox-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  border-radius: 10px;
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div style="display: flex; align-items: center;">
+      <img src="LOGO.png" alt="Company Logo">
+      <div class="company-name">JAAX Group</div>
+    </div>
+    <div class="menu">
+      <a href="#home">Home</a>
+      <a href="#about-us">About Us</a>
+      <a href="#our-business">Our Business</a>
+      <a href="#news-events">News & Events</a>
+      <a href="#contact-us">Contact Us</a>
+    </div>
+  </nav>
+
+<!-- Hero Section -->
+<!-- Hero Section -->
+<div class="hero">
+<div class="carousel-container">
+<img class="carousel-slide" src="images/4.jpg">
+<img class="carousel-slide" src="images/5.jpg">
+<img class="carousel-slide" src="images/6.jpg">
+<img class="carousel-slide" src="images/7.jpg">
+<img class="carousel-slide" src="images/8.jpg">
+</div>
+  <div class="hero-text">
+    INNOVATING SOLUTIONS
+  </div>
+</div>
+  <!-- About Us Section -->
+  <section id="about-us" class="about">
+    <h2>Company Introduction</h2>
+    <p>Headquartered in Dubai Maritime City, JAAX Marine Engineering FZC delivers integrated maritime and offshore solutions through three focused divisions: genuine spare-parts supply, round-the-clock ship repair, and specialist oilfield services spanning drilling support and data processing. Our on-site workshops, Class-certified inventory, and multidisciplinary engineers guarantee minimum downtime, strict HSSE compliance, and transparent project controls.</p>
+  </section>
+<!-- Our Business Section -->
+  <section id="our-business" class="our-business">
+    <h2>Our Business</h2>
+
+    <!-- 1. Marine Equipment & Spare Parts Trading -->
+    <div class="business-section">
+      <div class="business-image">
+        <img src="images/12.jpg" alt="Marine Equipment & Spare Parts">
+      </div>
+      <div class="business-text">
+        <h3>Marine Equipment &amp; Spare Parts Trading</h3>
+        <ul>
+          <li>Generators series and spare parts supply</li>
+          <li>Marine class standard light and system</li>
+          <li>Cable, Electric accessories and spare parts.</li>
+          <li>Pipes and fitting</li>
+          <li>Tools and labors over hall, Central Kitchen appliances</li>
+          <li>Import and export the consumable mechanical equipment, values and pumps.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2. Retail of Oil and Gas Well Equipment -->
+    <div class="business-section">
+      <div class="business-images-row">
+        <img src="images/13.jpg" alt="Oil and Gas Equipment 1">
+        <img src="images/14.jpg" alt="Oil and Gas Equipment 2">
+      </div>
+      <div class="business-text">
+        <h3>Retail of Oil and Gas well Equipment and Devices and Spare Parts</h3>
+        <ul>
+          <li>a. Top drive and drill floor equipment spare parts</li>
+          <li>b. Wellhead equipment, manifold and valves.</li>
+          <li>c. BOP spare parts, handling tools</li>
+          <li>d. Drilling tools (tubing sub, casing, drill pipe, crossover, lifting sub, rotary drilling tools and other tools thread process and supply)</li>
+          <li>e. Mud pump and consumable spare parts</li>
+          <li>f. Solid control equipment and tools</li>
+          <li>g. Other accessories for Oil and Natural Gas well Equipment, Devices and Spare Parts</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. Ship Repairs & Conversions -->
+    <div class="business-section">
+      <div class="business-text">
+        <h3>Ship Repairs &amp; Conversions</h3>
+        <ul>
+          <li>a. Steel Works</li>
+          <li>b. Blasting &amp; Painting</li>
+          <li>c. Machining Services</li>
+          <li>d. Electrical and Automation Services</li>
+          <li>e. Services for Electrical Equipment</li>
+          <li>f. Hydraulic Services</li>
+        </ul>
+      </div>
+      <div class="business-images-row">
+        <img src="images/15.jpg" alt="Ship Repairs 1">
+        <img src="images/16.jpg" alt="Ship Repairs 2">
+      </div>
+    </div>
+
+    <!-- 4. Geoscience & Drilling Support Services -->
+    <div class="business-section">
+      <div class="business-image">
+        <img src="images/17.jpg" alt="Geoscience & Drilling Support">
+      </div>
+      <div class="business-text">
+        <h3>Geoscience &amp; Drilling Support Services</h3>
+        <ul>
+          <li>Seismic data processing: 2-D/3-D/4-D pre-stack depth migration, noise attenuation, AVO/AVA inversion, fracture detection.</li>
+          <li>VSP &amp; LWD seismic: corridor stack, anisotropic tomography, time-depth tie for well positioning.</li>
+          <li>Wireline &amp; LWD log interpretation: triple-combo, NMR, image logs, saturation-height modelling, TOC/brittleness for unconventionally.</li>
+          <li>Static &amp; dynamic modelling: Petrel/Eclipse/INTERSECT geological models, history matching, uncertainty analysis, field-development scenarios.</li>
+          <li>While-drilling services: MWD real-time monitoring, geosteering, torque-and-drag modelling, pore-pressure prediction, casing-point selection, wiper-trip optimization and daily geo-reporting.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- News & Events Section -->
+  <section id="news-events" class="news">
+  <h2>News & Events</h2>
+
+  <!-- 1. Maritime Exhibition -->
+  <div class="news-block">
+    <div class="news-img">
+      <img src="images/11.jpg" alt="">
+      <img src="images/18.jpg" alt="">
+    </div>
+    <div class="news-text">
+      <h3>Company attend the China Maritime Exhibition together with E&ON</h3>
+      <p>2–5 Dec 2025</p>
+    </div>
+  </div>
+
+  <!-- 2. Dragon Oil PO -->
+  <div class="news-block">
+    <div class="news-img">
+      <img src="images/10.jpg" alt="">
+    </div>
+    <div class="news-text">
+      <h3>Company get first Service PO from Dragon Oil</h3>
+      <p>11 Dec 2025</p>
+    </div>
+  </div>
+
+  <!-- 3. ENOC & Dragon Oil Vendor Registration -->
+  <div class="news-block">
+    <div class="news-img">
+      <img src="images/19.png" alt="">
+    </div>
+    <div class="news-text">
+      <h3>Company successfully registered for ENOC and Dragon Oil vendor list</h3>
+      <p>3 Dec 2025</p>
+    </div>
+  </div>
+
+  <!-- 4. CNPC PO -->
+  <div class="news-block">
+    <div class="news-img">
+      <!-- 没图片就空着 -->
+    </div>
+    <div class="news-text">
+      <h3>Company initiate the first Seismic Data Coping PO to one of CNPC company</h3>
+      <p>9 Dec 2025</p>
+    </div>
+  </div>
+
+  <!-- 5. E&ON Agreement -->
+  <div class="news-block">
+    <div class="news-img">
+      <img src="images/9.png" alt="">
+    </div>
+    <div class="news-text">
+      <h3>The regional exclusive agent agreement was signed by Jaax and E&ON</h3>
+      <p>17 Sep 2025</p>
+    </div>
+  </div>
+
+  <!-- 6. ISO Certificates -->
+  <div class="news-block">
+    <div class="news-img iso-three">
+      <img src="images/1.png" alt="">
+      <img src="images/2.png" alt="">
+      <img src="images/3.png" alt="">
+    </div>
+    <div class="news-text">
+      <h3>Company accredit with ISO 9001, ISO 14001, ISO 45001</h3>
+      <p>17 Nov 2025</p>
+    </div>
+  </div>
+
+</section>
+
+  <!-- Contact Us Section -->
+  <section id="contact-us" class="contact">
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <p>Tel No: +971 4 570 3121</p>
+      <p>Email: info@jaaxgroup.com / sales@jaaxgroup.com</p>
+      <p>Address: Warehouse No. 300A – W342, Dubai Maritime City, Dubai, UAE</p>
+    </div>
+    <div class="contact-map">
+      <iframe src="https://maps.app.goo.gl/S7E1UAPeja2D3BGP8"></iframe>
+    </div>
+  </section>
+
+<!-- Floating Inquiry Form Button -->
+<div class="floating-form" onclick="toggleForm()">Inquiry</div>
+
+<!-- Floating Inquiry Form Popup -->
+<div class="inquiry-form-popup" id="contactFormPopup">
+  <div class="form-content">
+    <h3>Inquiry</h3>
+    <form action="mailto:info@jaaxgroup.com" method="post" enctype="text/plain">
+      <input type="text" name="name" placeholder="First name" required>
+      <input type="tel" name="phone" placeholder="Phone number" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="company" placeholder="Company name" required>
+      <textarea name="message" placeholder="Message" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <button onclick="toggleForm()">Close</button>
+  </div>
+</div>
+<!-- Image Lightbox Overlay -->
+<div class="img-lightbox-overlay" id="imgLightbox">
+  <img src="" alt="Preview">
+</div>
+<script>
+  // 控制 Inquiry 弹窗
+  function toggleForm() {
+    const form = document.getElementById("contactFormPopup");
+    form.style.display = form.style.display === "block" ? "none" : "block";
+  }
+
+  // ★★★ 轮播逻辑（你之前删掉了它）★★★
+  const slides = document.querySelectorAll('.carousel-slide');
+  let currentIndex = 0;
+
+  if (slides.length > 0) {
+    slides[0].classList.add('active'); // 第 1 张显示
+
+    setInterval(function () {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add('active');
+    }, 3000); // 每 3 秒切换
+  }
+  // === 图片点击放大 ===
+  const lightbox = document.getElementById('imgLightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  // 只给 hero / our-business / news 里的图片加放大功能
+  const zoomImgs = document.querySelectorAll(
+    '.hero img, .our-business img, .news img'
+  );
+
+  zoomImgs.forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function () {
+      lightboxImg.src = this.src;
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  // 点击遮罩关闭
+  lightbox.addEventListener('click', function () {
+    lightbox.style.display = 'none';
+  });
+</script>
+
+
+  <!-- Social Media Icons -->
+<div class="social-icons">
+  <a href="https://www.facebook.com/profile.php?id=61584956393896" target="_blank">
+    <img src="D:/promo/jaaxgroup/facebook-logo.png" alt="Facebook">
+  </a>
+  <a href="https://www.linkedin.com/in/jaax-group-b045703a0/" target="_blank">
+    <img src="D:/promo/jaaxgroup/linkedin-logo.png" alt="LinkedIn">
+  </a>
+  <a href="https://x.com/JAAX_GROUP" target="_blank">
+    <img src="D:/promo/jaaxgroup/x-logo.png" alt="Twitter">
+  </a>
+</div>
+
+
+  <footer>
+    Copyright © Jaax Group 2025 — All rights reserved. Disclaimer
+  </footer>
+
+</body>
+</html>
